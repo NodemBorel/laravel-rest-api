@@ -1,0 +1,49 @@
+composer dump-autoload
+
+php artisan tinker
+$task = new Task()
+$task->title = 'Do my homework'
+$task->save()
+
+
+php artisan make:resource TaskResource
+php artisan make:resource TaskCollection
+
+php artisan route:list
+
+php artisan make:request StoreTaskResquest
+php artisan make:request UpdateTaskResquest
+
+php artisan make:factory TaskFactory --model=Task
+php artisan tinker
+Task::factory(50)->create()
+
+composer require spatie/laravel-query-builder
+
+$u = User::factory()->create()
+$u->tasks()->create(['title' => 'Buy Hamburger'])
+
+php artisan make:model Project -cmf
+
+//create task for this user
+$u = User::find(4)
+$u->projects
+Task::factory()->for($u, 'creator')->create()
+
+//delete
+$p = Project::factory()->create()
+Task::factory()->for($p)->create()
+$p->delete()
+Task::withoutGobalScopes()->find(1)
+$u = User::find(2)
+$u->delete()
+Task::withoutGobalScopes()->find(1)
+
+//attach members to projects
+$p = Project::factory()->create() 
+$u = User::factory()->create()
+$p->members()->attach([$u->id])
+$p->members
+
+
+
